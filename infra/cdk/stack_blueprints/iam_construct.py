@@ -5,7 +5,7 @@ import aws_cdk.aws_iam as iam
 
 
 class IAMConstruct:
-    """Class holds methods for IAM resource creation""" 
+    """Class holds methods for IAM resource creation"""
     @staticmethod
     def create_role(
         stack: Stack,
@@ -13,7 +13,6 @@ class IAMConstruct:
         role_name: str,
         assumed_by: List[str]) -> iam.Role:
         """Create role utilized by lambda, glue, step function, or the stack itself."""
-
         services = list(map(lambda x: iam.ServicePrincipal(
             f"{x}.amazonaws.com"), assumed_by))
         return iam.Role(
@@ -30,7 +29,6 @@ class IAMConstruct:
         policy_name: str,
         statements: List[iam.PolicyStatement]) -> iam.ManagedPolicy:
         """Create managed policy for lambda roles with permissions for specific services."""
-
         return iam.ManagedPolicy(
             scope=stack,
             id=f"{config['global']['app-name']}-{policy_name}-policy-id",

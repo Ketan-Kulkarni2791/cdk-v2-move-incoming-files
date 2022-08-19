@@ -12,6 +12,7 @@ class IAMConstruct:
         config: dict,
         role_name: str,
         assumed_by: List[str]) -> iam.Role:
+
         """Create role utilized by lambda, glue, step function, or the stack itself."""
 
         services = list(map(lambda x: iam.ServicePrincipal(
@@ -29,6 +30,7 @@ class IAMConstruct:
         config: dict,
         policy_name: str,
         statements: List[iam.PolicyStatement]) -> iam.ManagedPolicy:
+
         """Create managed policy for lambda roles with permissions for specific services."""
 
         return iam.ManagedPolicy(
@@ -37,7 +39,6 @@ class IAMConstruct:
             managed_policy_name=f"{config['global']['app-name']}-{policy_name}-policy",
             statements=statements     
         )
-
 
     @staticmethod
     def get_kms_policy_document() -> iam.PolicyDocument:

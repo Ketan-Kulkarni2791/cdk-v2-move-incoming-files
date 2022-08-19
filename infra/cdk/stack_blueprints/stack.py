@@ -26,33 +26,30 @@ class MainProjectStack(aws_cdk.Stack):
 
         # KMS infra setup
         kms_pol_doc = IAMConstruct.get_kms_policy_document()
-   
+
         kms_key = KMSConstruct.create_kms_key(
             stack=stack,
             config=config,
             policy_doc=kms_pol_doc
         )
         print(kms_key)
- 
+
         # IAM Role Setup
         stack_role = MainProjectStack.create_stack_role(
             config=config,
-            env=env,
             stack=stack,
             kms_key=kms_key
         )
         print(stack_role)
-   
     
     @staticmethod
     def create_stack_role(
         config: dict,
-        env: str,
         stack: aws_cdk.Stack,
         kms_key: kms.Key
     ) -> iam.Role:
         """Create the IAM role."""
-        
+    
         stack_policy = IAMConstruct.create_managed_policy(
             stack=stack,
             config=config,

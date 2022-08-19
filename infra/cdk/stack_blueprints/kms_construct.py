@@ -22,13 +22,12 @@ class KMSConstruct:
             enabled=True,
             policy=policy_doc
         )
-    
-        
+      
     @staticmethod
     def get_kms_key_encrypt_decrypt_policy(
         kms_keys: List[str]) -> iam.PolicyStatement:
-
         """Returns policy statement for encrypting and decrypting kms keys."""
+
         policy_statement = iam.PolicyStatement()
         policy_statement.effect = iam.Effect.ALLOW
         policy_statement.add_actions("kms:Decrept")

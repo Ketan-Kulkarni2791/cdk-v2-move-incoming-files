@@ -1,11 +1,11 @@
 """Code for generation and deployment of s3 resources."""
-from aws_cdk import Stack, Duration
+# from aws_cdk import Stack, Duration
 import aws_cdk.aws_iam as iam
 
 
 class S3Construct:
     """Class with static methods that are used to build and deploy s3."""
-    
+  
     @staticmethod
     def get_s3_object_policy(s3_bucket_arns: str) -> iam.PolicyStatement:
         """Returns policy statement for reading and writing S3 objects."""

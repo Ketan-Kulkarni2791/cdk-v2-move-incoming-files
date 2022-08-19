@@ -22,7 +22,7 @@ class KMSConstruct:
             enabled=True,
             policy=policy_doc
         )
-      
+
     @staticmethod
     def get_kms_key_encrypt_decrypt_policy(
         kms_keys: List[str]) -> iam.PolicyStatement:

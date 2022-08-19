@@ -18,10 +18,10 @@ class MainProjectStack(aws_cdk.Stack):
         super().__init__(scope, app_id, **kwargs)
         self.env_var = env_var
         self.config = config
-        MainProjectStack.create_stack(self, self.env_var, config=config)
+        MainProjectStack.create_stack(self, config=config)
 
     @staticmethod
-    def create_stack(stack: aws_cdk.Stack, env: str, config: dict) -> None:
+    def create_stack(stack: aws_cdk.Stack, config: dict) -> None:
         """Create and add the resources to the application stack"""
 
         # KMS infra setup
@@ -41,7 +41,7 @@ class MainProjectStack(aws_cdk.Stack):
             kms_key=kms_key
         )
         print(stack_role)
-    
+
     @staticmethod
     def create_stack_role(
         config: dict,
@@ -49,7 +49,7 @@ class MainProjectStack(aws_cdk.Stack):
         kms_key: kms.Key
     ) -> iam.Role:
         """Create the IAM role."""
-    
+
         stack_policy = IAMConstruct.create_managed_policy(
             stack=stack,
             config=config,

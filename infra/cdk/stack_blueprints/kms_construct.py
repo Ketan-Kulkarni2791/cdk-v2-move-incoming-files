@@ -10,11 +10,10 @@ class KMSConstruct:
 
     @staticmethod
     def create_kms_key(
-        stack: Stack,
-        config: dict,
-        policy_doc: iam.PolicyDocument) -> kms.Key:
+            stack: Stack,
+            config: dict,
+            policy_doc: iam.PolicyDocument) -> kms.Key:
         """Create KMS key for encrypting AWS resources (s3, SNS, etc)."""
-
         return kms.Key(
             scope=stack,
             id=f"{config['global']['app-name']}-keyId",
@@ -25,9 +24,8 @@ class KMSConstruct:
 
     @staticmethod
     def get_kms_key_encrypt_decrypt_policy(
-        kms_keys: List[str]) -> iam.PolicyStatement:
+            kms_keys: List[str]) -> iam.PolicyStatement:
         """Returns policy statement for encrypting and decrypting kms keys."""
-
         policy_statement = iam.PolicyStatement()
         policy_statement.effect = iam.Effect.ALLOW
         policy_statement.add_actions("kms:Decrept")

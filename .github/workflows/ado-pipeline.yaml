@@ -100,5 +100,5 @@ jobs:
           python ${{ env.SCRIPT_DIRECTORY }}/run_pytest_config.py
 
       - name: CDK Deploy
-        run: cdk deploy
+        run: cdk deploy --require-approval "never"
         working-directory: ${{ env.BASE_DIRECTORY }}

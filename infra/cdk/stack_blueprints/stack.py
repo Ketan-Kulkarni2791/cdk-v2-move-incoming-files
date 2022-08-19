@@ -23,32 +23,27 @@ class MainProjectStack(aws_cdk.Stack):
     @staticmethod
     def create_stack(stack: aws_cdk.Stack, env: str, config: dict) -> None:
         """Create and add the resources to the application stack"""
-        
+
         # KMS infra setup
         kms_pol_doc = IAMConstruct.get_kms_policy_document()
-        
+   
         kms_key = KMSConstruct.create_kms_key(
             stack=stack,
             config=config,
-            env=env,
             policy_doc=kms_pol_doc
         )
         print(kms_key)
-        
+ 
         # IAM Role Setup
         stack_role = MainProjectStack.create_stack_role(
             config=config,
             env=env,
             stack=stack,
-            kms_key=kms_key,
-            destination_bucket_arn=config['global']['dr_bucket_arn'],
-            source_bucket_arn=config['global']['bucket_arn'],
-            destination_bucket_kms_Arn=config['global']['bucketDrKmsKeyArn'],
-            source_bucket_kms_Arn=config['global']['bucketKmsKeyArn']
+            kms_key=kms_key
         )
         print(stack_role)
-        
-        
+   
+    
     @staticmethod
     def create_stack_role(
         config: dict,
@@ -60,7 +55,6 @@ class MainProjectStack(aws_cdk.Stack):
         
         stack_policy = IAMConstruct.create_managed_policy(
             stack=stack,
-            env=env,
             config=config,
             policy_name="mainStack",
             statements=[
@@ -72,7 +66,6 @@ class MainProjectStack(aws_cdk.Stack):
         )
         stack_role = IAMConstruct.create_role(
             stack=stack,
-            env=env,
             config=config,
             role_name="mainStack",
             assumed_by=["s3", "lambda"]

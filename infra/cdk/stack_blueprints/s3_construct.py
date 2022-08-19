@@ -1,10 +1,6 @@
 """Code for generation and deployment of s3 resources."""
-import imp
-from typing import Dict, Any, List
 from aws_cdk import Stack, Duration
 import aws_cdk.aws_iam as iam
-import aws_cdk.aws_kms as kms 
-import aws_cdk.aws_s3 as s3 
 
 
 class S3Construct:
@@ -13,6 +9,7 @@ class S3Construct:
     @staticmethod
     def get_s3_object_policy(s3_bucket_arns: str) -> iam.PolicyStatement:
         """Returns policy statement for reading and writing S3 objects."""
+
         policy_statement = iam.PolicyStatement()
         policy_statement.effect = iam.Effect.ALLOW
         policy_statement.add_actions("s3:DeleteObject*")

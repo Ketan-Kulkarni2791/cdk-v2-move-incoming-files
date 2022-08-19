@@ -7,14 +7,14 @@ import aws_cdk.aws_kms as kms
 
 class KMSConstruct:
     """Class for methods to create KMS keys"""
-    
+
     @staticmethod
     def create_kms_key(
         stack: Stack,
-        env: str,
         config: dict,
         policy_doc: iam.PolicyDocument) -> kms.Key:
         """Create KMS key for encrypting AWS resources (s3, SNS, etc)."""
+
         return kms.Key(
             scope=stack,
             id=f"{config['global']['app-name']}-keyId",
@@ -22,11 +22,12 @@ class KMSConstruct:
             enabled=True,
             policy=policy_doc
         )
-        
+    
         
     @staticmethod
     def get_kms_key_encrypt_decrypt_policy(
         kms_keys: List[str]) -> iam.PolicyStatement:
+
         """Returns policy statement for encrypting and decrypting kms keys."""
         policy_statement = iam.PolicyStatement()
         policy_statement.effect = iam.Effect.ALLOW

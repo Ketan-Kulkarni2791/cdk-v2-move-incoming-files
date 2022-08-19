@@ -12,7 +12,8 @@ class KMSConstruct:
     def create_kms_key(
         stack: Stack,
         config: dict,
-        policy_doc: iam.PolicyDocument) -> kms.Key:
+        policy_doc: iam.PolicyDocument
+        ) -> kms.Key:
         """Create KMS key for encrypting AWS resources (s3, SNS, etc)."""
 
         return kms.Key(
@@ -25,7 +26,8 @@ class KMSConstruct:
 
     @staticmethod
     def get_kms_key_encrypt_decrypt_policy(
-        kms_keys: List[str]) -> iam.PolicyStatement:
+        kms_keys: List[str]
+        ) -> iam.PolicyStatement:
         """Returns policy statement for encrypting and decrypting kms keys."""
 
         policy_statement = iam.PolicyStatement()

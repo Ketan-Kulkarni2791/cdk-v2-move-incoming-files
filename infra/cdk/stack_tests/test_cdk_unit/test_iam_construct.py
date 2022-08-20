@@ -9,7 +9,7 @@ from infra.cdk.stack_blueprints.iam_construct import IAMConstruct
 class TestIAMConstruct(unittest.TestCase):
     """IAM Construct Testing Class."""
     
-    def setup(self):
+    def setup(self) -> None:
         self.addCleanup(patch.stopall)
         self.mocked_stack = Mock()
         
@@ -36,7 +36,7 @@ class TestIAMConstruct(unittest.TestCase):
         }
         self.high_level_config = {"test": self.config}
         
-    def test_create_role(self):
+    def test_create_role(self) -> None:
         IAMConstruct.create_role(
             self.mocked_stack,
             self.config["env"],

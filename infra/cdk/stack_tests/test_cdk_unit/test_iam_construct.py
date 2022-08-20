@@ -30,6 +30,7 @@ class TestIAMConstruct(unittest.TestCase):
         self.config = {
             "env": "test",
             "appNameShort": "test-app",
+            "app-name": "test-app",
             "region": "test-region",
             "awsAccount": "test-aws-account",
             "workgroup-arn": "test-workgroup-arn"
@@ -63,8 +64,8 @@ class TestIAMConstruct(unittest.TestCase):
         
         self.mocked_managed_policy.assert_called_once_with(
             self.mocked_stack,
-            id=f"{self.config['appNameShort']}-testPolicy-policy-id",
-            managed_policy_name=f"{self.config['appNameShort']}-testPolicy-policy",
+            id=f"{self.config['app-name']}-testPolicy-policy-id",
+            managed_policy_name=f"{self.config['app-name']}-testPolicy-policy",
             statements=expected_statements
         )
         

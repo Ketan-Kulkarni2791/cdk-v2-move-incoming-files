@@ -33,7 +33,7 @@ class IAMConstruct:
             scope=stack,
             id=f"{config['global']['app-name']}-{policy_name}-policy-id",
             managed_policy_name=f"{config['global']['app-name']}-{policy_name}-policy",
-            statements=statements     
+            statements=statements
         )
 
     @staticmethod

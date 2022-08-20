@@ -6,6 +6,7 @@ import aws_cdk.aws_iam as iam
 
 class IAMConstruct:
     """Class holds methods for IAM resource creation"""
+    # noninspection PyTypeChecker
     @staticmethod
     def create_role(
             stack: Stack,

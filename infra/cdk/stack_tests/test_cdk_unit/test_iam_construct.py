@@ -34,7 +34,7 @@ class TestIAMConstruct(unittest.TestCase):
             "awsAccount": "test-aws-account",
             "workgroup-arn": "test-workgroup-arn"
         }
-        self.high_level_config = {"test": self.config}
+        self.high_level_config = {"global": self.config}
         
     def test_create_role(self) -> None:
         IAMConstruct.create_role(

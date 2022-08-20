@@ -41,14 +41,14 @@ class TestIAMConstruct(unittest.TestCase):
             self.mocked_stack,
             self.high_level_config,
             "testRole",
-            []
+            [],
         )
         
         self.mocked_role.assert_called_once_with(
             self.mocked_stack,
             f"{self.config['appNameShort']}-testRole-role-id",
             role_name=f"{self.config['appNameShort']}-testRole-role",
-            assumed_by=iam.CompositePrincipal.return_value
+            assumed_by=iam.CompositePrincipal.return_value,
         )
         
     def test_create_managed_policy(self) -> None:

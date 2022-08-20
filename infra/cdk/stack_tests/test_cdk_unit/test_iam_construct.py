@@ -51,7 +51,7 @@ class TestIAMConstruct(unittest.TestCase):
             assumed_by=iam.CompositePrincipal.return_value
         )
         
-    def test_create_managed_policy(self):
+    def test_create_managed_policy(self) -> None:
         expected_statements = self.mocked_policy_statement.return_value
         
         IAMConstruct.create_managed_policy(

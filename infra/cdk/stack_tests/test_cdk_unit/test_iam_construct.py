@@ -46,7 +46,7 @@ class TestIAMConstruct(unittest.TestCase):
         
         self.mocked_role.assert_called_once_with(
             self.mocked_stack,
-            id=f"{self.config['appNameShort']}-testRole-role-id",
+            f"{self.config['appNameShort']}-testRole-role-id",
             role_name=f"{self.config['appNameShort']}-testRole-role",
             assumed_by=iam.CompositePrincipal.return_value
         )

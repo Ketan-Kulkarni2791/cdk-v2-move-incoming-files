@@ -15,8 +15,8 @@ class IAMConstruct:
             f"{x}.amazonaws.com"), assumed_by))
         return iam.Role(
             scope=stack,
-            id=f"{config['global']['app-name']}{role_name}-role-id",
-            role_name=f"{config['global']['app-name']}{role_name}-role",
+            id=f"{config['global']['appNameShort']}{role_name}-role-id",
+            role_name=f"{config['global']['appNameShort']}{role_name}-role",
             assumed_by=iam.CompositePrincipal(*services)
         )
 

@@ -29,7 +29,7 @@ class TestIAMConstruct(unittest.TestCase):
         
         self.config = {
             "env": "test",
-            "app-name": "test-app",
+            "appNameShort": "test-app",
             "region": "test-region",
             "awsAccount": "test-aws-account",
             "workgroup-arn": "test-workgroup-arn"
@@ -46,8 +46,8 @@ class TestIAMConstruct(unittest.TestCase):
         
         self.mocked_role.assert_called_once_with(
             self.mocked_stack,
-            id=f"{self.config['app-name']}-testRole-role-id",
-            role_name=f"{self.config['app-name']}-testRole-role",
+            id=f"{self.config['appNameShort']}-testRole-role-id",
+            role_name=f"{self.config['appNameShort']}-testRole-role",
             assumed_by=iam.CompositePrincipal.return_value
         )
         

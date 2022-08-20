@@ -51,3 +51,20 @@ class TestIAMConstruct(unittest.TestCase):
             assumed_by=iam.CompositePrincipal.return_value
         )
         
+    def test_create_managed_policy(self):
+        expected_statements = self.mocked_policy_statement.return_value
+        
+        IAMConstruct.create_managed_policy(
+            self.mocked_stack,
+            self.high_level_config,
+            "testPolicy",
+            [expected_statements]
+        )
+        
+        self.mocked_managed_policy.assert_called_once_with(
+            self.mocked_stack,
+            id=f"{self.config['appNameShort']}-testPolicy-policy-id",
+            managed_policy_name=f"{self.config['appNameShort']}-testPolicy-policy",
+            statements=expected_statements
+        )
+        

@@ -8,11 +8,8 @@ class IAMConstruct:
     """Class holds methods for IAM resource creation"""
     # noninspection PyTypeChecker
     @staticmethod
-    def create_role(
-            stack: Stack,
-            config: dict,
-            role_name: str,
-            assumed_by: List[str]) -> iam.Role:
+    def create_role(stack: Stack, config: dict, role_name: str,
+                    assumed_by: List[str]) -> iam.Role:
         """Create role utilized by lambda, glue, step function, or the stack itself."""
         services = list(map(lambda x: iam.ServicePrincipal(
             f"{x}.amazonaws.com"), assumed_by))

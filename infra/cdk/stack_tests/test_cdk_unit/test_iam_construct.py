@@ -2,7 +2,6 @@
 import unittest
 from unittest.mock import patch, Mock, call
 import aws_cdk.aws_iam as iam
-from aws_cdk import Stack
 
 from infra.cdk.stack_blueprints.iam_construct import IAMConstruct
 
@@ -10,9 +9,9 @@ from infra.cdk.stack_blueprints.iam_construct import IAMConstruct
 class TestIAMConstruct(unittest.TestCase):
     """IAM Construct Testing Class."""
     
-    def setup(self) -> None:
+    def setUp(self) -> None:
         self.addCleanup(patch.stopall)
-        # self.mocked_stack = Mock()
+        self.mocked_stack = Mock()
         
         self.mocked_role = patch("aws_cdk.aws_iam.Role", spec=True).start()
         self.mocked_principal = patch(
@@ -39,14 +38,14 @@ class TestIAMConstruct(unittest.TestCase):
         
     def test_create_role(self) -> None:
         IAMConstruct.create_role(
-            Stack,
+            self.mocked_stack,
             self.high_level_config,
             "testRole",
             []
         )
         
         self.mocked_role.assert_called_once_with(
-            Stack,
+            self.mocked_stack,
             f"{self.config['appNameShort']}-testRole-role-id",
             role_name=f"{self.config['appNameShort']}-testRole-role",
             assumed_by=iam.CompositePrincipal.return_value

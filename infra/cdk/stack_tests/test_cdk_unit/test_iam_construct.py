@@ -39,7 +39,6 @@ class TestIAMConstruct(unittest.TestCase):
     def test_create_role(self) -> None:
         IAMConstruct.create_role(
             self.mocked_stack,
-            self.config["env"],
             self.high_level_config,
             "testRole",
             []

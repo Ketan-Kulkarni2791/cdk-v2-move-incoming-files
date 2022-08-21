@@ -17,13 +17,13 @@ class S3Construct:
         bucket_metrics = s3.BucketMetrics(
             id=f"erm-{bucket_name}"
         )
-  
+
         lifecycle_rule = s3.LifecycleRule(
             abort_incomplete_multipart_upload_after=Duration.days(1),
             enabled=True,
             noncurrent_version_expiration=Duration.days(1)
         )
- 
+
         ga_bucket = s3.Bucket(
             scope=stack,
             id=bucket_id,

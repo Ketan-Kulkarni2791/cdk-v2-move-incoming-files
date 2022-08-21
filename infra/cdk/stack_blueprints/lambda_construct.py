@@ -34,7 +34,6 @@ class LambdaConstruct:
             config: dict,
             lambda_name: str,
             role: iam.Role,
-            env_vars: dict,
             duration: Duration) -> aws_lambda.Function:
         """Methods for generic lambda creation."""
 
@@ -49,7 +48,6 @@ class LambdaConstruct:
             "handler": handler,
             "runtime": aws_lambda.Runtime.PYTHON_3_8,
             "role": role,
-            "environment": env_vars,
             "timeout": duration,
             "log_retention": aws_logs.RetentionDays.THREE_MONTHS
         }

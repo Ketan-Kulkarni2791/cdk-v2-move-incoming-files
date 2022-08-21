@@ -107,7 +107,6 @@ class MainProjectStack(aws_cdk.Stack):
     def create_lambda_functions(
             stack: aws_cdk.Stack,
             config: dict,
-            env: str,
             kms_key: kms.Key) -> Dict[str, _lambda.Function]:
         """Create placeholder lambda function and roles."""
 

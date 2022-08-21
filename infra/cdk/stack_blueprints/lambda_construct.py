@@ -1,5 +1,4 @@
 """Code for generation and deploy lambda to AWS"""
-import json
 import aws_cdk.aws_iam as iam
 import aws_cdk.aws_lambda as aws_lambda
 import aws_cdk.aws_logs as aws_logs

@@ -18,10 +18,7 @@ source_key = os.environ['processing_folder']
 dest_key = os.environ['dataset_folder']
 
 
-def incoming_data_mover(filedate: str,
-                        bucket_name: str, 
-                        source_key: str, 
-                        dest_key: str) -> str:
+def incoming_data_mover(filedate: str) -> str:
     s3_client = boto3.client("s3")
     s3_resource = boto3.resource("s3")
     bucket = s3_resource.Bucket(bucket_name)

@@ -11,6 +11,7 @@ from .iam_construct import IAMConstruct
 from .kms_construct import KMSConstruct
 from .s3_construct import S3Construct
 from .lambda_construct import LambdaConstruct
+from .stepfunction_construct import StepFunctionConstruct
 
 
 class MainProjectStack(aws_cdk.Stack):
@@ -53,10 +54,19 @@ class MainProjectStack(aws_cdk.Stack):
         )
 
         # Infra for Lambda function creation -------------------------------------
-        MainProjectStack.create_lambda_functions(
+        lambdas = MainProjectStack.create_lambda_functions(
             stack=stack,
             config=config,
             kms_key=kms_key
+        )
+
+        # Moving Incoming Files Step Function Infra ------------------------------
+        MainProjectStack.create_step_function(
+            stack=stack,
+            config=config,
+            env=env,
+            state_machine_name=f"{config['global']['app-name']}-actuals-stateMachine",
+            lambdas=lambdas
         )
 
     @staticmethod
@@ -144,3 +154,43 @@ class MainProjectStack(aws_cdk.Stack):
         )
 
         return lambdas
+
+    @staticmethod
+    def create_step_function(
+        stack: aws_cdk.Stack,
+        config: dict,
+        env: str,
+        state_machine_name: str,
+        lambdas: Dict[str, _lambda.Function]) -> None:
+        """Create Step Function and necessary IAM role with input lambdas."""
+        
+        state_machine_policy = IAMConstruct.create_managed_policy(
+            stack=stack,
+            env=env,
+            config=config,
+            policy_name="movingIncomingFilesStateMachine",
+            statements=[
+                StepFunctionConstruct.get_sfn_lambda_invoke_job_policy_statement(
+                    config=config,
+                    env=env
+                )
+            ]
+        )
+        
+        state_machine_role = IAMConstruct.create_role(
+            stack=stack,
+            env=env,
+            config=config,
+            role_name="movingIncomingFilesStateMachine",
+            assumed_by=['states']
+        )
+        state_machine_role.add_managed_policy(state_machine_policy)
+        
+        StepFunctionConstruct.create_step_function(
+            stack=stack,
+            env=env,
+            config=config,
+            role=state_machine_role,
+            state_machine_name=state_machine_name,
+            moving_incoming_files=lambdas["moving_incoming_files_lambda"]
+        )

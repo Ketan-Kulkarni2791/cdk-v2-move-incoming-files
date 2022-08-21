@@ -62,7 +62,7 @@ class StepFunctionConstruct:
     @staticmethod
     def create_step_function_definition(
             stack: Stack,
-            moving_incoming_files_task: aws_stepfunctions_tasks.Task) -> sfn.Chain:
+            moving_incoming_files_task: aws_stepfunctions_tasks.LambdaInvoke) -> sfn.Chain:
         """Create Step Function Definition."""
 
         exec_param = {"Execution.$": "$$.Execution.Id"}

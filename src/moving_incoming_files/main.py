@@ -9,17 +9,15 @@ Returns-
 import os
 from datetime import datetime
 import logging
-from xmlrpc.client import DateTime
 import boto3
 
 logging.getLogger().setLevel(logging.INFO)
 
-bucket_name = os.environ['bucket_name']
-source_key = os.environ['processing_folder']
-dest_key = os.environ['dataset_folder']
-
 
 def incoming_data_mover(filedate: DateTime) -> str:
+    bucket_name = os.environ['bucket_name']
+    source_key = os.environ['processing_folder']
+    dest_key = os.environ['dataset_folder']
     s3_client = boto3.client("s3")
     s3_resource = boto3.resource("s3")
     bucket = s3_resource.Bucket(bucket_name)

@@ -34,7 +34,6 @@ class LambdaConstruct:
     def create_lambda_function(
             stack: Stack,
             config: dict,
-            # env: str,
             lambda_name: str,
             role: iam.Role,
             env_vars: dict,

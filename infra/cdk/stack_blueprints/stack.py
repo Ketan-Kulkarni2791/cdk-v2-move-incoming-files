@@ -149,7 +149,6 @@ class MainProjectStack(aws_cdk.Stack):
         lambdas["moving_incoming_files_lambda"] = LambdaConstruct.create_lambda(
             stack=stack,
             config=config,
-            # env=env,
             lambda_name="moving_incoming_files_lambda",
             role=moving_incoming_files_role,
             duration=aws_cdk.Duration.minutes(15)

@@ -13,7 +13,6 @@ class LambdaConstruct:
     def create_lambda(
             stack: Stack,
             config: dict,
-            # env: str,
             lambda_name: str,
             role: iam.Role,
             duration: Duration = None) -> aws_lambda.Function:
@@ -23,7 +22,6 @@ class LambdaConstruct:
         return LambdaConstruct.create_lambda_function(
             stack=stack,
             config=config,
-            # env=env,
             lambda_name=lambda_name,
             role=role,
             env_vars=env_vars,

@@ -14,10 +14,10 @@ import boto3
 logging.getLogger().setLevel(logging.INFO)
 
 
-def incoming_data_mover(filedate: str) -> str:
-    bucket_name = os.environ['bucket_name']
-    source_key = os.environ['processing_folder']
-    dest_key = os.environ['dataset_folder']
+def incoming_data_mover(filedate: str,
+                        bucket_name: str, 
+                        source_key: str, 
+                        dest_key: str) -> str:
     s3_client = boto3.client("s3")
     s3_resource = boto3.resource("s3")
     bucket = s3_resource.Bucket(bucket_name)
@@ -46,9 +46,12 @@ def lambda_handler(event: dict, _context: dict) -> dict:
     if event:
         # Create template and extract values from event --------------------------------
         logging.info("This is the event we received: %s", event)
+        bucket_name = os.environ['bucket_name']
+        source_key = os.environ['processing_folder']
+        dest_key = os.environ['dataset_folder']
         try:
             filedate = event['asof_date']
-            incoming_data_mover(filedate)
+            incoming_data_mover(filedate, bucket_name, source_key, dest_key)
             return {
                 'asof_date': filedate
             }

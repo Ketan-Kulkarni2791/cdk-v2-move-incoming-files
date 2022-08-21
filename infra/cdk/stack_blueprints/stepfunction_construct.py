@@ -18,8 +18,7 @@ class StepFunctionConstruct:
             config: dict,
             role: iam.Role,
             state_machine_name: str,
-            moving_incoming_files: aws_lambda.Function
-        ) -> sfn.StateMachine:
+            moving_incoming_files: aws_lambda.Function) -> sfn.StateMachine:
         """Create step Function."""
 
         # project_id_short = config['global']['source-id-short']
@@ -47,8 +46,10 @@ class StepFunctionConstruct:
         return state_machine
 
     @staticmethod
-    def create_lambda_task(stack: Stack, task_def: str, task_lambda: aws_lambda.Function,
-                        result_key: str = '$') -> sfn.Task:
+    def create_lambda_task(stack: Stack, 
+                           task_def: str, 
+                           task_lambda: aws_lambda.Function,
+                           result_key: str = '$') -> sfn.Task:
         """Create Lambda Task."""
         lambda_task = sfn.Task(
             scope=stack,

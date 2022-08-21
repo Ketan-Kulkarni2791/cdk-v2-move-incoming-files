@@ -64,7 +64,6 @@ class MainProjectStack(aws_cdk.Stack):
         MainProjectStack.create_step_function(
             stack=stack,
             config=config,
-            env=env,
             state_machine_name=f"{config['global']['app-name']}-actuals-stateMachine",
             lambdas=lambdas
         )

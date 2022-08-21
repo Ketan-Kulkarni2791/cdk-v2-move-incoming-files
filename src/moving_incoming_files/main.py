@@ -46,7 +46,7 @@ def lambda_handler(event: dict, _context: dict) -> dict:
     if event:
         # Create template and extract values from event --------------------------------
         logging.info("This is the event we received: %s", event)
-        bucket_name = os.environ['bucket_name']
+        bucket_name = os.environ.get('bucket_name', os.environ['bucket_name'])
         source_key = os.environ['processing_folder']
         dest_key = os.environ['dataset_folder']
         try:

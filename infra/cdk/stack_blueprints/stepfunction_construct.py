@@ -62,7 +62,7 @@ class StepFunctionConstruct:
     @staticmethod
     def create_step_function_definition(
             stack: Stack,
-            moving_incoming_files_task) -> sfn.Chain:
+            moving_incoming_files_task: sfn.Task) -> sfn.Chain:
         """Create Step Function Definition."""
 
         exec_param = {"Execution.$": "$$.Execution.Id"}

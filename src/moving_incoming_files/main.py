@@ -60,6 +60,3 @@ def lambda_handler(event: dict, _context: dict) -> dict:
     else:
         logging.error("We couldn't find a suitable event. Exiting....")
         raise OSError("No event found")
-
-    
-    

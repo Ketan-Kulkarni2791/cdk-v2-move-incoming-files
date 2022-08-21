@@ -42,6 +42,7 @@ class MainProjectStack(aws_cdk.Stack):
         stack_role = MainProjectStack.create_stack_role(
             config=config,
             stack=stack,
+            env=env,
             kms_key=kms_key
         )
         print(stack_role)
@@ -57,6 +58,7 @@ class MainProjectStack(aws_cdk.Stack):
         lambdas = MainProjectStack.create_lambda_functions(
             stack=stack,
             config=config,
+            env=env,
             kms_key=kms_key
         )
 
@@ -115,6 +117,7 @@ class MainProjectStack(aws_cdk.Stack):
     def create_lambda_functions(
             stack: aws_cdk.Stack,
             config: dict,
+            env: str,
             kms_key: kms.Key) -> Dict[str, _lambda.Function]:
         """Create placeholder lambda function and roles."""
 
@@ -124,6 +127,7 @@ class MainProjectStack(aws_cdk.Stack):
         moving_incoming_files_policy = IAMConstruct.create_managed_policy(
             stack=stack,
             config=config,
+            env=env,
             policy_name="moving_incoming_files",
             statements=[
                 LambdaConstruct.get_cloudwatch_policy(
@@ -138,6 +142,7 @@ class MainProjectStack(aws_cdk.Stack):
         moving_incoming_files_role = IAMConstruct.create_role(
             stack=stack,
             config=config,
+            env=env,
             role_name="moving_incoming_files",
             assumed_by=["lambda", "s3"]   
         )
@@ -147,6 +152,7 @@ class MainProjectStack(aws_cdk.Stack):
         lambdas["moving_incoming_files_lambda"] = LambdaConstruct.create_lambda(
             stack=stack,
             config=config,
+            env=env,
             lambda_name="moving_incoming_files_lambda",
             role=moving_incoming_files_role,
             duration=aws_cdk.Duration.minutes(15)

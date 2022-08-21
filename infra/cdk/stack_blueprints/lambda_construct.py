@@ -1,4 +1,5 @@
 """Code for generation and deploy lambda to AWS"""
+import json
 import aws_cdk.aws_iam as iam
 import aws_cdk.aws_lambda as aws_lambda
 import aws_cdk.aws_logs as aws_logs
@@ -12,17 +13,20 @@ class LambdaConstruct:
     def create_lambda(
             stack: Stack,
             config: dict,
+            env: str,
             lambda_name: str,
             role: iam.Role,
             duration: Duration = None) -> aws_lambda.Function:
         """Method called by construct for creating lambda."""
 
-        # env_vars = json.loads(config['global'][f"{lambda_name}Environment"])
+        env_vars = json.loads(config['global'][f"{lambda_name}Environment"])
         return LambdaConstruct.create_lambda_function(
             stack=stack,
             config=config,
+            env=env,
             lambda_name=lambda_name,
             role=role,
+            env_vars=env_vars,
             duration=duration
         )
 
@@ -30,8 +34,10 @@ class LambdaConstruct:
     def create_lambda_function(
             stack: Stack,
             config: dict,
+            env: str,
             lambda_name: str,
             role: iam.Role,
+            env_vars: dict,
             duration: Duration) -> aws_lambda.Function:
         """Methods for generic lambda creation."""
 
@@ -46,6 +52,7 @@ class LambdaConstruct:
             "handler": handler,
             "runtime": aws_lambda.Runtime.PYTHON_3_8,
             "role": role,
+            "environment": env_vars,
             "timeout": duration,
             "log_retention": aws_logs.RetentionDays.THREE_MONTHS
         }

@@ -18,7 +18,7 @@ class LambdaConstruct:
             duration: Duration = None) -> aws_lambda.Function:
         """Method called by construct for creating lambda."""
 
-        env_vars = json.loads(config['global'][f"{lambda_name}Environment"])
+        # env_vars = json.loads(config['global'][f"{lambda_name}Environment"])
         return LambdaConstruct.create_lambda_function(
             stack=stack,
             config=config,

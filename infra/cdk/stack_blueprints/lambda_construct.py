@@ -8,18 +8,17 @@ from aws_cdk import Stack, Duration
 
 class LambdaConstruct:
     """Class with static methods that are used to build and deploy lambdas."""
-    
+
     @staticmethod
     def create_lambda(
-        stack: Stack,
-        env: str,
-        config: dict,
-        lambda_name: str,
-        role: iam.Role,
-        duration: Duration = None
-    ) -> aws_lambda.Function:
+            stack: Stack,
+            env: str,
+            config: dict,
+            lambda_name: str,
+            role: iam.Role,
+            duration: Duration = None) -> aws_lambda.Function:
         """Method called by construct for creating lambda."""
-        
+     
         env_vars = json.loads(config['global'][f"{lambda_name}Environment"])
         return LambdaConstruct.create_lambda_function(
             stack=stack,
@@ -30,7 +29,7 @@ class LambdaConstruct:
             env_vars=env_vars,
             duration=duration
         )
-        
+     
     @staticmethod
     def create_lambda_function(
         stack: Stack,
@@ -41,12 +40,12 @@ class LambdaConstruct:
         env_vars: dict,
         duration: Duration) -> aws_lambda.Function:
         """Methods for generic lambda creation."""
-        
+      
         lambda_path = config['global'][f"{lambda_name}HndlrPath"]
-        handler =  config['global'][f"{lambda_name}Hndlr"]
+        handler = config['global'][f"{lambda_name}Hndlr"]
         function_id = f"{config['global']['app-name']}-{lambda_name}-Id"
         function_name = f"{config['global']['app-name']}-{lambda_name}"
-        
+ 
         dict_props = {
             "function_name": function_name,
             "code": aws_lambda.Code.from_asset(path=lambda_path),
@@ -57,7 +56,7 @@ class LambdaConstruct:
             "timeout": duration,
             "log_retention": aws_logs.RetentionDays.THREE_MONTHS
         }
-        
+ 
         return aws_lambda.Function(scope=stack, id=function_id, **dict_props)
     
     @staticmethod

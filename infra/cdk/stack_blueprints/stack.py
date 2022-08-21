@@ -51,7 +51,7 @@ class MainProjectStack(aws_cdk.Stack):
             env=env,
             stack=stack
         )
-        
+  
         # Infra for Lambda function creation -------------------------------------
         MainProjectStack.create_lambda_functions(
             stack=stack,
@@ -102,21 +102,20 @@ class MainProjectStack(aws_cdk.Stack):
             bucket_name=config['global']['bucket_name']
         )
         return s3_bucket
-    
+
     @staticmethod
     def create_lambda_functions(
-        stack: aws_cdk.Stack,
-        config: dict,
-        env: str,
-        kms_key: kms.Key) -> Dict[str, _lambda.Function]:
+            stack: aws_cdk.Stack,
+            config: dict,
+            env: str,
+            kms_key: kms.Key) -> Dict[str, _lambda.Function]:
         """Create placeholder lambda function and roles."""
-        
+   
         lambdas = {}
-        
+   
         # Moving incoming files to S3 destination lambda.
         moving_incoming_files_policy = IAMConstruct.create_managed_policy(
             stack=stack,
-            env=env,
             config=config,
             policy_name="moving_incoming_files",
             statements=[
@@ -128,7 +127,7 @@ class MainProjectStack(aws_cdk.Stack):
                 KMSConstruct.get_kms_key_encrypt_decrypt_policy([kms_key.key_arn])
             ]
         )
-        
+
         moving_incoming_files_role = IAMConstruct.create_role(
             stack=stack,
             env=env,
@@ -136,9 +135,9 @@ class MainProjectStack(aws_cdk.Stack):
             role_name="moving_incoming_files",
             assumed_by=["lambda", "s3"]   
         )
-        
+ 
         moving_incoming_files_role.add_managed_policy(moving_incoming_files_policy)
-        
+
         lambdas["moving_incoming_files_lambda"] = LambdaConstruct.create_lambda(
             stack=stack,
             env=env,

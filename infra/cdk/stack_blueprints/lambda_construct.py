@@ -13,7 +13,7 @@ class LambdaConstruct:
     def create_lambda(
             stack: Stack,
             config: dict,
-            env: str,
+            # env: str,
             lambda_name: str,
             role: iam.Role,
             duration: Duration = None) -> aws_lambda.Function:
@@ -23,7 +23,7 @@ class LambdaConstruct:
         return LambdaConstruct.create_lambda_function(
             stack=stack,
             config=config,
-            env=env,
+            # env=env,
             lambda_name=lambda_name,
             role=role,
             env_vars=env_vars,
@@ -34,14 +34,14 @@ class LambdaConstruct:
     def create_lambda_function(
             stack: Stack,
             config: dict,
-            env: str,
+            # env: str,
             lambda_name: str,
             role: iam.Role,
             env_vars: dict,
             duration: Duration) -> aws_lambda.Function:
         """Methods for generic lambda creation."""
 
-        print(env)
+        # print(env)
         lambda_path = config['global'][f"{lambda_name}HndlrPath"]
         handler = config['global'][f"{lambda_name}Hndlr"]
         function_id = f"{config['global']['app-name']}-{lambda_name}-Id"

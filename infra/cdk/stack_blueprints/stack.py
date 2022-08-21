@@ -57,7 +57,7 @@ class MainProjectStack(aws_cdk.Stack):
         lambdas = MainProjectStack.create_lambda_functions(
             stack=stack,
             config=config,
-            env=env,
+            # env=env,
             kms_key=kms_key
         )
 
@@ -116,7 +116,7 @@ class MainProjectStack(aws_cdk.Stack):
     def create_lambda_functions(
             stack: aws_cdk.Stack,
             config: dict,
-            env: str,
+            # env: str,
             kms_key: kms.Key) -> Dict[str, _lambda.Function]:
         """Create placeholder lambda function and roles."""
 
@@ -149,7 +149,7 @@ class MainProjectStack(aws_cdk.Stack):
         lambdas["moving_incoming_files_lambda"] = LambdaConstruct.create_lambda(
             stack=stack,
             config=config,
-            env=env,
+            # env=env,
             lambda_name="moving_incoming_files_lambda",
             role=moving_incoming_files_role,
             duration=aws_cdk.Duration.minutes(15)

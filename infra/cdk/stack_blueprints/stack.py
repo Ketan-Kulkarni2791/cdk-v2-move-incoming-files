@@ -51,7 +51,7 @@ class MainProjectStack(aws_cdk.Stack):
             env=env,
             stack=stack
         )
-  
+
         # Infra for Lambda function creation -------------------------------------
         MainProjectStack.create_lambda_functions(
             stack=stack,
@@ -110,9 +110,9 @@ class MainProjectStack(aws_cdk.Stack):
             env: str,
             kms_key: kms.Key) -> Dict[str, _lambda.Function]:
         """Create placeholder lambda function and roles."""
-   
+
         lambdas = {}
-   
+
         # Moving incoming files to S3 destination lambda.
         moving_incoming_files_policy = IAMConstruct.create_managed_policy(
             stack=stack,
@@ -130,7 +130,6 @@ class MainProjectStack(aws_cdk.Stack):
 
         moving_incoming_files_role = IAMConstruct.create_role(
             stack=stack,
-            env=env,
             config=config,
             role_name="moving_incoming_files",
             assumed_by=["lambda", "s3"]   
@@ -140,7 +139,6 @@ class MainProjectStack(aws_cdk.Stack):
 
         lambdas["moving_incoming_files_lambda"] = LambdaConstruct.create_lambda(
             stack=stack,
-            env=env,
             config=config,
             lambda_name="moving_incoming_files_lambda",
             role=moving_incoming_files_role,

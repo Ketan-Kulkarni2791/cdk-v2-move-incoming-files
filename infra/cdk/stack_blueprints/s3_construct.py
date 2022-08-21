@@ -57,7 +57,7 @@ class S3Construct:
         policy_statement.add_resources(f"{s3_bucket_arns}")
         policy_statement.add_resources(f"{s3_bucket_arns}/*")
         return policy_statement
-    
+
     @staticmethod
     def get_s3_bucket_policy(s3_bucket_arns: str) -> iam.PolicyStatement:
         """Returns policy statement for reading from S3 bucket."""

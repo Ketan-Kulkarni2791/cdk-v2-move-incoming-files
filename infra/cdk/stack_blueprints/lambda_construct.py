@@ -12,7 +12,6 @@ class LambdaConstruct:
     @staticmethod
     def create_lambda(
             stack: Stack,
-            env: str,
             config: dict,
             lambda_name: str,
             role: iam.Role,
@@ -23,7 +22,6 @@ class LambdaConstruct:
         return LambdaConstruct.create_lambda_function(
             stack=stack,
             config=config,
-            env=env,
             lambda_name=lambda_name,
             role=role,
             env_vars=env_vars,

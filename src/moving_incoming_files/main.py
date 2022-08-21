@@ -33,8 +33,9 @@ def incoming_data_mover(filedate: str) -> str:
         }
         if file == "":
             continue
-        s3_client.copy_object(CopySource=copy_source_object, Bucket=bucket_name,
-                                Key=f"""{dest_key}/yyyy={yyyy}/mm={month}/dd={day}/{file}""") 
+        s3_client.copy_object(CopySource=copy_source_object, 
+                              Bucket=bucket_name,
+                              Key=f"""{dest_key}/yyyy={yyyy}/mm={month}/dd={day}/{file}""") 
         s3_client.delete_object(Bucket=bucket_name, Key=f"""{path}/{file}""")
     return "success"
 

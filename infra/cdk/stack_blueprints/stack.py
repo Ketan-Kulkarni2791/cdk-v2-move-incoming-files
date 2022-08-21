@@ -42,7 +42,7 @@ class MainProjectStack(aws_cdk.Stack):
             kms_key=kms_key
         )
         print(stack_role)
-        
+
         # S3 Bucket Infra Setup --------------------------------------------------
         MainProjectStack.create_bucket(
             config=config,

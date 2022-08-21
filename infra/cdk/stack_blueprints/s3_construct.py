@@ -6,25 +6,24 @@ import aws_cdk.aws_s3 as s3
 
 class S3Construct:
     """Class with static methods that are used to build and deploy s3."""
-    
+
     @staticmethod
     def create_bucket(
             stack: Stack,
             bucket_id: str,
-            bucket_name: str
-        ) -> s3.Bucket:
+            bucket_name: str) -> s3.Bucket:
         """Creates an encrypted bucket."""
 
         bucket_metrics = s3.BucketMetrics(
             id=f"erm-{bucket_name}"
         )
-        
+  
         lifecycle_rule = s3.LifecycleRule(
             abort_incomplete_multipart_upload_after=Duration.days(1),
             enabled=True,
             noncurrent_version_expiration=Duration.days(1)
         )
-        
+ 
         ga_bucket = s3.Bucket(
             scope=stack,
             id=bucket_id,
@@ -36,7 +35,7 @@ class S3Construct:
             metrics=[bucket_metrics],
             lifecycle_rules=[lifecycle_rule]
         )
-        
+
         return ga_bucket
 
     @staticmethod

@@ -51,7 +51,7 @@ class StepFunctionConstruct:
                            task_lambda: aws_lambda.Function,
                            result_key: str = '$') -> sfn.Task:
         """Create Lambda Task."""
-        lambda_task = sfn.Task(
+        lambda_task = aws_stepfunctions_tasks.Task(
             scope=stack,
             id=task_def,
             task=aws_stepfunctions_tasks.InvokeFunction(task_lambda),

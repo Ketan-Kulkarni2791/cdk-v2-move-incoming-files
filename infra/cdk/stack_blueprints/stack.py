@@ -142,3 +142,5 @@ class MainProjectStack(aws_cdk.Stack):
             role=moving_incoming_files_role,
             duration=aws_cdk.Duration.minutes(15)
         )
+
+        return lambdas

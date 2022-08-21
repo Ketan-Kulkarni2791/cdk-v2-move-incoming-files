@@ -56,7 +56,6 @@ class MainProjectStack(aws_cdk.Stack):
         MainProjectStack.create_lambda_functions(
             stack=stack,
             config=config,
-            env=env,
             kms_key=kms_key
         )
 
@@ -133,7 +132,7 @@ class MainProjectStack(aws_cdk.Stack):
             role_name="moving_incoming_files",
             assumed_by=["lambda", "s3"]   
         )
- 
+
         moving_incoming_files_role.add_managed_policy(moving_incoming_files_policy)
 
         lambdas["moving_incoming_files_lambda"] = LambdaConstruct.create_lambda(

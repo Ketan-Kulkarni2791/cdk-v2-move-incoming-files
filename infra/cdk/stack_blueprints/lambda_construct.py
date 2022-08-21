@@ -24,7 +24,6 @@ class LambdaConstruct:
             config=config,
             lambda_name=lambda_name,
             role=role,
-            env_vars=env_vars,
             duration=duration
         )
 
@@ -51,7 +50,7 @@ class LambdaConstruct:
             "timeout": duration,
             "log_retention": aws_logs.RetentionDays.THREE_MONTHS
         }
- 
+
         return aws_lambda.Function(scope=stack, id=function_id, **dict_props)
 
     @staticmethod

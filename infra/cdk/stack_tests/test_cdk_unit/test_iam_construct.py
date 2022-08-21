@@ -62,7 +62,7 @@ class TestIAMConstruct(unittest.TestCase):
             [expected_statements]
         )
         
-        self.mocked_managed_policy.assert_called_once_with(
+        self.mocked_managed_policy.assert_called_with(
             self.mocked_stack,
             id=f"{self.config['app-name']}-testPolicy-policy-id",
             managed_policy_name=f"{self.config['app-name']}-testPolicy-policy",

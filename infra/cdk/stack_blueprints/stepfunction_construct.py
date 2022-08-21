@@ -54,7 +54,7 @@ class StepFunctionConstruct:
         lambda_task = aws_stepfunctions_tasks.LambdaInvoke(
             scope=stack,
             id=task_def,
-            task=aws_stepfunctions_tasks.InvokeFunction(task_lambda),
+            lambda_function=task_lambda,
             result_path=result_key
         )
         return lambda_task

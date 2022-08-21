@@ -14,7 +14,7 @@ import boto3
 logging.getLogger().setLevel(logging.INFO)
 
 
-def incoming_data_mover(filedate: DateTime) -> str:
+def incoming_data_mover(filedate: str) -> str:
     bucket_name = os.environ['bucket_name']
     source_key = os.environ['processing_folder']
     dest_key = os.environ['dataset_folder']

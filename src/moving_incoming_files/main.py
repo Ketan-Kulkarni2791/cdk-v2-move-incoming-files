@@ -13,6 +13,10 @@ import boto3
 
 logging.getLogger().setLevel(logging.INFO)
 
+bucket_name = os.environ.get('bucket_name', os.environ['bucket_name'])
+source_key = os.environ['processing_folder']
+dest_key = os.environ['dataset_folder']
+
 
 def incoming_data_mover(filedate: str,
                         bucket_name: str, 
@@ -46,12 +50,9 @@ def lambda_handler(event: dict, _context: dict) -> dict:
     if event:
         # Create template and extract values from event --------------------------------
         logging.info("This is the event we received: %s", event)
-        bucket_name = os.environ.get('bucket_name', os.environ['bucket_name'])
-        source_key = os.environ['processing_folder']
-        dest_key = os.environ['dataset_folder']
         try:
             filedate = event['asof_date']
-            incoming_data_mover(filedate, bucket_name, source_key, dest_key)
+            incoming_data_mover(filedate)
             return {
                 'asof_date': filedate
             }

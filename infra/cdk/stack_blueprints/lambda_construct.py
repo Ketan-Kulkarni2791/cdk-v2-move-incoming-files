@@ -41,6 +41,7 @@ class LambdaConstruct:
             duration: Duration) -> aws_lambda.Function:
         """Methods for generic lambda creation."""
 
+        print(env)
         lambda_path = config['global'][f"{lambda_name}HndlrPath"]
         handler = config['global'][f"{lambda_name}Hndlr"]
         function_id = f"{config['global']['app-name']}-{lambda_name}-Id"

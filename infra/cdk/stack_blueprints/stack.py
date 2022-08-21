@@ -42,7 +42,6 @@ class MainProjectStack(aws_cdk.Stack):
         stack_role = MainProjectStack.create_stack_role(
             config=config,
             stack=stack,
-            env=env,
             kms_key=kms_key
         )
         print(stack_role)
@@ -127,7 +126,6 @@ class MainProjectStack(aws_cdk.Stack):
         moving_incoming_files_policy = IAMConstruct.create_managed_policy(
             stack=stack,
             config=config,
-            env=env,
             policy_name="moving_incoming_files",
             statements=[
                 LambdaConstruct.get_cloudwatch_policy(
@@ -142,7 +140,6 @@ class MainProjectStack(aws_cdk.Stack):
         moving_incoming_files_role = IAMConstruct.create_role(
             stack=stack,
             config=config,
-            env=env,
             role_name="moving_incoming_files",
             assumed_by=["lambda", "s3"]   
         )

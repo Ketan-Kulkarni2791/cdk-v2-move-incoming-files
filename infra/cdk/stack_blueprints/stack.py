@@ -2,7 +2,8 @@
 from typing import Dict, Any
 import aws_cdk
 import aws_cdk.aws_iam as iam
-import aws_cdk.aws_kms as kms 
+import aws_cdk.aws_kms as kms
+import aws_cdk.aws_s3 as s3
 from constructs import Construct
 
 from .iam_construct import IAMConstruct
@@ -18,10 +19,10 @@ class MainProjectStack(aws_cdk.Stack):
         super().__init__(scope, app_id, **kwargs)
         self.env_var = env_var
         self.config = config
-        MainProjectStack.create_stack(self, config=config)
+        MainProjectStack.create_stack(self, config=config, env=self.env_var)
 
     @staticmethod
-    def create_stack(stack: aws_cdk.Stack, config: dict) -> None:
+    def create_stack(stack: aws_cdk.Stack, config: dict, env: str) -> None:
         """Create and add the resources to the application stack"""
 
         # KMS infra setup
@@ -41,6 +42,13 @@ class MainProjectStack(aws_cdk.Stack):
             kms_key=kms_key
         )
         print(stack_role)
+        
+        # S3 Bucket Infra Setup --------------------------------------------------
+        MainProjectStack.create_bucket(
+            config=config,
+            env=env,
+            stack=stack
+        )
 
     @staticmethod
     def create_stack_role(
@@ -69,3 +77,18 @@ class MainProjectStack(aws_cdk.Stack):
         )
         stack_role.add_managed_policy(policy=stack_policy)
         return stack_role
+
+    @staticmethod
+    def create_bucket(
+            config: dict,
+            env: str,
+            stack: aws_cdk.Stack) -> s3.Bucket:
+        """Create an encrypted s3 bucket."""
+
+        print(env)
+        s3_bucket = S3Construct.create_bucket(
+            stack=stack,
+            bucket_id=f"moving-incoming-files-{config['global']['env']}",
+            bucket_name=config['global']['bucket_name']
+        )
+        return s3_bucket
